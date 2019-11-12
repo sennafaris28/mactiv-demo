@@ -1,31 +1,31 @@
 import React, { Component } from 'react';
 import './App.css';
+import BasicLayout from './Components/basicES6/BasicLayout';
+import Activation from './Components/basicES6/Activation';
 
 class App extends Component {
 
-  constructor() {
-    super()
+  constructor(props) {
+    super(props);
 
     this.state = {
-      time: new Date()
+      isActivated: true
     }
+
+    this.handleStatusChange = this.handleStatusChange.bind(this);
+
   }
 
-  currentTime() {
-    this.setState({
-      time: new Date()
-    })
+  handleStatusChange(isActivated) {
+    console.log(isActivated);
+    this.setState({ isActivated: isActivated });
   }
 
-  UNSAFE_componentWillMount() {
-    setInterval(() => this.currentTime(), 5000);
-  }
   render() {
+    const isActivated = this.state.isActivated;
     return (
       <div>
-        <h1>
-          {this.state.time.toLocaleTimeString()}
-        </h1>
+        {this.state.isActivated ? <BasicLayout /> : <Activation onStatusChange={this.handleStatusChange} isActivated={isActivated} />}
       </div>
     )
   }
