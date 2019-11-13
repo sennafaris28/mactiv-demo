@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 
 const clockStyle = {
     rootStyle: {
-        fontFamily: 'Mont-SemiBold',
+        fontFamily: 'Proxima-Regular',
         color: 'white',
         margin: '0',
-        padding: '0'
+        padding: '0',
     },
     h1Style: {
-        fontFamily: 'Mont-Bold',
+        fontFamily: 'Proxima-SemiBold',
         fontSize: '10rem',
         lineHeight: '0.7',
         margin: '0'
@@ -63,7 +63,7 @@ class Clock extends Component {
             case 2:
                 return "SELASA"
             case 3:
-                return "RABU"
+                return "MINGGU"
             case 4:
                 return "KAMIS"
             case 5:
@@ -86,7 +86,9 @@ class Clock extends Component {
                 <h1
                     style={clockStyle.h1Style}
                 >
+                    {this.addZero(date.getHours())}
                     {date.getHours()}.
+                    {this.addZero(date.getMinutes())}
                     {date.getMinutes()}.
                     {this.addZero(date.getSeconds())}
                     {date.getSeconds()}
@@ -99,7 +101,7 @@ class Clock extends Component {
                     style={clockStyle.h2Style}
                 >
                     <b>{this.convertDay(date.getDay())}</b> I
-                    {' ' + date.getDate()}/{date.getMonth()}/{date.getFullYear()}
+                    {' ' + this.addZero(date.getDate())}{date.getDate()}/{this.addZero(date.getMonth())}{date.getMonth()}/{date.getFullYear()}
                 </h2>
             </div>
         );

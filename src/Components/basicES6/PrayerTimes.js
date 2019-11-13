@@ -3,12 +3,14 @@ import React, { Component } from 'react';
 var prayerStyle = {
     h2Style: {
         height: '94px',
-        fontFamily: 'Mont-SemiBold',
-        fontSize: '4rem',
-        letterSpacing: '-3px',
+        //fontFamily: 'Mont-SemiBold',
+        fontFamily: 'Proxima-SemiBold',
+        fontSize: '4.5rem',
+        letterSpacing: '-2px',
         color: 'white',
         margin: '0',
-        paddingTop: '1rem'
+        paddingTop: '0.5rem',
+        textShadow: '4px 4px 15px rgba(0, 0, 0, 0.5)'
     },
     hrStyle: {
         width: '90%',
@@ -17,10 +19,13 @@ var prayerStyle = {
     },
     h1Style: {
         height: '152px',
-        fontFamily: 'Mont-Bold',
-        fontSize: '8rem',
+        //fontFamily: 'Mont-Bold',
+        fontFamily: 'Proxima-SemiBold',
+        fontSize: '8.5rem',
+        letterSpacing: '-2px',
         color: 'white',
-        margin: '0'
+        margin: '0',
+        textShadow: '4px 4px 15px rgba(0, 0, 0, 0.5)'
     }
 }
 
@@ -35,7 +40,8 @@ class PrayerTimes extends Component {
                 style={{
                     height: '250px',
                     borderRadius: '50px',
-                    background: 'linear-gradient(to right bottom, ' + start + ', ' + end + ')'
+                    background: 'linear-gradient(to right, ' + start + ', ' + end + ')',
+                    boxShadow: '5px 5px 20px -10px rgba(0,0,0,0.75)'
                 }}>
                 <h2
                     style={prayerStyle.h2Style}>
