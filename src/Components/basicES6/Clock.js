@@ -9,8 +9,9 @@ const clockStyle = {
     },
     h1Style: {
         fontFamily: 'Proxima-SemiBold',
-        fontSize: '10rem',
+        fontSize: '11rem',
         lineHeight: '0.7',
+        letterSpacing: '-6px',
         margin: '0'
     },
     hrStyle: {
@@ -18,6 +19,12 @@ const clockStyle = {
     },
     h2Style: {
         fontSize: '4.2rem'
+    },
+    h3Style: {
+        fontSize: '7rem',
+        lineHeight: '0.7',
+        letterSpacing: '-4px',
+        margin: '0'
     }
 }
 
@@ -49,11 +56,10 @@ class Clock extends Component {
     }
 
     addZero(number) {
-        var res = "";
         if (number < 10) {
-            res = "0";
+            number = "0" + number;
         }
-        return res;
+        return number;
     }
 
     convertDay(day) {
@@ -76,23 +82,38 @@ class Clock extends Component {
                 break;
         }
     }
+
+    getMeridiem(hour) {
+        if (hour < 12) {
+            return "AM"
+        } else if (hour == 12) {
+            return "PM"
+        }
+    }
+
     render() {
         const date = this.state.date;
+        const hour = date.getHours();
+
         return (
             <div
                 className="text-center"
                 style={clockStyle.rootStyle}
             >
-                <h1
-                    style={clockStyle.h1Style}
-                >
-                    {this.addZero(date.getHours())}
-                    {date.getHours()}.
-                    {this.addZero(date.getMinutes())}
-                    {date.getMinutes()}.
-                    {this.addZero(date.getSeconds())}
-                    {date.getSeconds()}
-                </h1>
+                <div className="list-inline">
+                    <h1 className="list-inline-item"
+                        style={clockStyle.h1Style}
+                    >
+                        {this.addZero(hour)}.
+                        {this.addZero(date.getMinutes())}
+                    </h1>
+                    <h3
+                        className="list-inline-item"
+                        style={clockStyle.h3Style}
+                    >
+                        {this.getMeridiem(hour)}
+                    </h3>
+                </div>
                 <hr
                     className="mx-auto"
                     style={clockStyle.hrStyle}
@@ -101,7 +122,7 @@ class Clock extends Component {
                     style={clockStyle.h2Style}
                 >
                     <b>{this.convertDay(date.getDay())}</b> I
-                    {' ' + this.addZero(date.getDate())}{date.getDate()}/{this.addZero(date.getMonth())}{date.getMonth()}/{date.getFullYear()}
+                    {' ' + this.addZero(date.getDate())}/{this.addZero(date.getMonth())}/{date.getFullYear()}
                 </h2>
             </div>
         );

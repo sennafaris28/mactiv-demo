@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import BasicLayout from './Components/basicES6/BasicLayout';
 import Activation from './Components/basicES6/Activation';
+import Axios from 'axios';
 
 class App extends Component {
 
@@ -9,23 +10,47 @@ class App extends Component {
     super(props);
 
     this.state = {
-      isActivated: true
+      isActivated: false,
+      serialNumber: 'CSyn5tSKH5HMLH8bQ0FS'
     }
-
-    this.handleStatusChange = this.handleStatusChange.bind(this);
 
   }
 
-  handleStatusChange(isActivated) {
-    console.log(isActivated);
-    this.setState({ isActivated: isActivated });
+  componentDidMount() {
+    this.timerID = setInterval(
+      () => {
+        if (!this.state.isActivated) this.checkStatus();
+      }
+      , 10000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+
+  checkStatus() {
+    const serialNumber = this.state.serialNumber;
+    Axios.post('https://devMactiv.mybluemix.net/api/masjidBox/sync',
+      {
+        serialNumber,
+        force: 1
+      }).then(res => {
+        console.log(res);
+        if (res.data.masjidId) {
+          this.setState({
+            isActivated: true
+          })
+        }
+      }).catch(err => {
+        console.log("Serial Number Not Found");
+      })
   }
 
   render() {
-    const isActivated = this.state.isActivated;
+    const { isActivated, serialNumber } = this.state;
     return (
       <div>
-        {this.state.isActivated ? <BasicLayout /> : <Activation onStatusChange={this.handleStatusChange} isActivated={isActivated} />}
+        {isActivated ? <BasicLayout /> : <Activation serialNumber={serialNumber} />}
       </div>
     )
   }
