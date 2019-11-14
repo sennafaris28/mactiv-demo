@@ -21,7 +21,7 @@ class App extends Component {
       () => {
         if (!this.state.isActivated) this.checkStatus();
       }
-      , 10000);
+      , 1000);
   }
 
   componentWillUnmount() {

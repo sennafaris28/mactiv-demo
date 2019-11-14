@@ -86,14 +86,16 @@ class Clock extends Component {
     getMeridiem(hour) {
         if (hour < 12) {
             return "AM"
-        } else if (hour == 12) {
-            return "PM"
         }
+        return "PM"
     }
 
     render() {
         const date = this.state.date;
-        const hour = date.getHours();
+        var hour = date.getHours();
+        if (hour >= 24) {
+            hour = 0;
+        }
 
         return (
             <div
