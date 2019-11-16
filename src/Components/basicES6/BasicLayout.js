@@ -3,6 +3,7 @@ import Clock from './Clock';
 import PrayerTimes from './PrayerTimes';
 import Timer from './Timer';
 import Background from '../../Images/bg.png';
+import Axios from "axios";
 
 import {
     Row
@@ -41,14 +42,59 @@ class BasicLayout extends Component {
         super(props);
         this.state = {
             prayer: [
-                "04.30",
-                "05.50",
-                "11.52",
-                "15.16",
-                "17.52",
-                "19.03"
+                "00:00",
+                "00:00",
+                "00:00",
+                "00:00",
+                "00:00",
+                "00:00"
             ]
         }
+    }
+
+    componentDidMount() {
+        this.getPrayerTime();
+        this.timerID = setInterval(() => {
+            this.getPrayerTime();
+        }, 5000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timerID);
+    }
+
+    checkFormat(p) {
+        if (p.length === 4) {
+            p = '0' + p;
+        }
+        return p;
+    }
+
+    getPrayerTime() {
+        const serialNumber = this.props.serialNumber;
+        const date = new Date();
+        Axios.post('https://devMactiv.mybluemix.net/api/masjidBox/getPrayerTime',
+            {
+                serialNumber,
+                date: date.getFullYear() + '-' + date.getMonth() + '-' + date.getDay()
+            }).then(res => {
+                console.log(res);
+                if (res.status === 200) {
+                    const pt = res.data;
+                    this.setState({
+                        prayer: [
+                            this.checkFormat(pt.fajr),
+                            this.checkFormat(pt.sunrise),
+                            pt.zuhr,
+                            pt.asr,
+                            pt.maghrib,
+                            pt.isya
+                        ]
+                    })
+                }
+            }).catch(err => {
+                console.log("Serial Number Not Found");
+            })
     }
 
 
@@ -110,7 +156,6 @@ class BasicLayout extends Component {
                 <Row>
                     <div style={layoutStyle.leftStyle}>
                         <Timer
-                            title="Shubuh"
                             prayer={prayer}
                             start="#b9e6f9"
                             end="#5bb3fd"

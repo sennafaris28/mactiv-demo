@@ -56,6 +56,7 @@ class Clock extends Component {
     }
 
     addZero(number) {
+
         if (number < 10) {
             number = "0" + number;
         }
@@ -76,7 +77,7 @@ class Clock extends Component {
                 return "JUM'AT"
             case 6:
                 return "SABTU"
-            case 7:
+            case 0:
                 return "MINGGU"
             default:
                 break;
@@ -95,6 +96,8 @@ class Clock extends Component {
         var hour = date.getHours();
         if (hour >= 24) {
             hour = 0;
+        } else if (hour > 12) {
+            hour = hour - 12;
         }
 
         return (

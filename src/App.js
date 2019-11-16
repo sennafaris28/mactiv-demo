@@ -21,7 +21,7 @@ class App extends Component {
       () => {
         if (!this.state.isActivated) this.checkStatus();
       }
-      , 1000);
+      , 5000);
   }
 
   componentWillUnmount() {
@@ -50,7 +50,7 @@ class App extends Component {
     const { isActivated, serialNumber } = this.state;
     return (
       <div>
-        {isActivated ? <BasicLayout /> : <Activation serialNumber={serialNumber} />}
+        {isActivated ? <BasicLayout serialNumber={serialNumber} /> : <Activation serialNumber={serialNumber} />}
       </div>
     )
   }

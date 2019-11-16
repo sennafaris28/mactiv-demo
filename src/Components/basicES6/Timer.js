@@ -63,7 +63,27 @@ class Timer extends Component {
             prayer: newPrayers
         });
 
-        this.setTimer();
+        if (newPrayers[0] !== '0')
+            this.setTimer();
+    }
+
+    setTimer() {
+        // get state
+        var { nextPrayerIndex,
+            now,
+            prayer
+        } = this.state;
+
+        // calculate delta
+        var delta = prayer[nextPrayerIndex] - now;
+        if (delta < 0) {
+            delta = this.convertToSecond(24, 0, 0) - now + prayer[nextPrayerIndex];
+        }
+
+        // Convert delta to time format and save to state
+        this.setState({
+            timer: this.convertToTimeFormat(delta)
+        })
     }
 
     convertToSecond(hour, minute, second) {
@@ -87,25 +107,6 @@ class Timer extends Component {
         if (minutes < 10) { minutes = "0" + minutes; }
         if (seconds < 10) { seconds = "0" + seconds; }
         return hours + ':' + minutes + ':' + seconds;
-    }
-
-    setTimer() {
-        // get state
-        var { nextPrayerIndex,
-            now,
-            prayer
-        } = this.state;
-
-        // calculate delta
-        var delta = prayer[nextPrayerIndex] - now;
-        if (delta < 0) {
-            delta = this.convertToSecond(24, 0, 0) - now + prayer[nextPrayerIndex];
-        }
-
-        // Convert delta to time format and save to state
-        this.setState({
-            timer: this.convertToTimeFormat(delta)
-        })
     }
 
     addZero(number) {
