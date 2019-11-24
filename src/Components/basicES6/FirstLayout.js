@@ -15,7 +15,7 @@ var layoutStyle = {
         width: '100%',
         height: '100vh',
         backgroundImage: `url(${Background})`
-    },
+    }, 
     leftStyle: {
         width: '633px',
         height: '250px',
@@ -36,7 +36,7 @@ var layoutStyle = {
         padding: '0'
     }
 }
-class BasicLayout extends Component {
+class FirstLayout extends Component {
 
     constructor(props) {
         super(props);
@@ -56,7 +56,7 @@ class BasicLayout extends Component {
         this.getPrayerTime();
         this.timerID = setInterval(() => {
             this.getPrayerTime();
-        }, 5000);
+        }, 3600000);
     }
 
     componentWillUnmount() {
@@ -72,11 +72,9 @@ class BasicLayout extends Component {
 
     getPrayerTime() {
         const serialNumber = this.props.serialNumber;
-        const date = new Date();
         Axios.post('https://devMactiv.mybluemix.net/api/masjidBox/getPrayerTime',
             {
-                serialNumber,
-                date: date.getFullYear() + '-' + date.getMonth() + '-' + date.getDay()
+                serialNumber
             }).then(res => {
                 console.log(res);
                 if (res.status === 200) {
@@ -184,4 +182,4 @@ class BasicLayout extends Component {
 }
 
 
-export default BasicLayout;
+export default FirstLayout;

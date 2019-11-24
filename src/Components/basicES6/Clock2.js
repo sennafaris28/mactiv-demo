@@ -9,26 +9,17 @@ const clockStyle = {
     },
     h1Style: {
         fontFamily: 'Proxima-SemiBold',
-        fontSize: '11rem',
+        fontSize: '110px',
         lineHeight: '0.7',
         letterSpacing: '-6px',
         margin: '0'
     },
-    hrStyle: {
-        borderTop: '5px solid white',
-    },
     h2Style: {
-        fontSize: '4.2rem'
+        fontSize: '32px'
     },
-    h3Style: {
-        fontSize: '7rem',
-        lineHeight: '0.7',
-        letterSpacing: '-4px',
-        margin: '0'
-    }
 }
 
-class Clock extends Component {
+class Clock2 extends Component {
     constructor(props) {
         super(props);
 
@@ -65,39 +56,58 @@ class Clock extends Component {
     convertDay(day) {
         switch (day) {
             case 1:
-                return "SENIN"
+                return "Senin"
             case 2:
-                return "SELASA"
+                return "Selasa"
             case 3:
-                return "MINGGU"
+                return "Rabu"
             case 4:
-                return "KAMIS"
+                return "Kamis"
             case 5:
-                return "JUM'AT"
+                return "Jum'at"
             case 6:
-                return "SABTU"
+                return "Sabtu"
             case 0:
-                return "MINGGU"
+                return "Ahad"
             default:
                 break;
         }
     }
 
-    getMeridiem(hour) {
-        if (hour <= 12) {
-            return "AM"
+    convertMonth(month) {
+        switch (month) {
+            case 1:
+                return "Januari"
+            case 2:
+                return "Februari"
+            case 3:
+                return "Maret"
+            case 4:
+                return "April"
+            case 5:
+                return "Mei"
+            case 6:
+                return "Juni"
+            case 7:
+                return "Juli"
+            case 8:
+                return "Agustus"
+            case 9:
+                return "September"
+            case 10:
+                return "Oktober"
+            case 11:
+                return "November"
+            case 12:
+                return "Desember"
+            default:
+                break;
         }
-        return "PM"
     }
 
     render() {
         const date = this.state.date;
         var hour = date.getHours();
-        if (hour >= 24) {
-            hour = 0;
-        } else if (hour > 12) {
-            hour = hour - 12;
-        }
 
         return (
             <div
@@ -106,27 +116,16 @@ class Clock extends Component {
             >
                 <div className="list-inline">
                     <h1 className="list-inline-item"
-                        style={clockStyle.h1Style}
-                    >
-                        {this.addZero(hour)}.
-                        {this.addZero(date.getMinutes())}
+                        style={clockStyle.h1Style} >
+                        {this.addZero(hour)}:
+                        {this.addZero(date.getMinutes())}:
+                        {this.addZero(date.getSeconds())}
                     </h1>
-                    <h3
-                        className="list-inline-item"
-                        style={clockStyle.h3Style}
-                    >
-                        {this.getMeridiem(date.getHours())}
-                    </h3>
                 </div>
-                <hr
-                    className="mx-auto"
-                    style={clockStyle.hrStyle}
-                ></hr>
                 <h2
-                    style={clockStyle.h2Style}
-                >
-                    <b>{this.convertDay(date.getDay())}</b> I
-                    {' ' + this.addZero(date.getDate())}/{this.addZero(date.getMonth()+1)}/{date.getFullYear()}
+                    style={clockStyle.h2Style} >
+                    {this.convertDay(date.getDay())},
+                    {' ' + this.addZero(date.getDate())} {this.convertMonth(date.getMonth()+1)} {date.getFullYear()}
                 </h2>
             </div>
         );
@@ -134,4 +133,4 @@ class Clock extends Component {
 
 };
 
-export default Clock;
+export default Clock2;

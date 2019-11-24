@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
-import BasicLayout from './Components/basicES6/BasicLayout';
+import BaseLayout from './Components/basicES6/BaseLayout';
 import Activation from './Components/basicES6/Activation';
 import Axios from 'axios';
 
@@ -49,11 +49,11 @@ class App extends Component {
         return (
             <div>
                 {isActivated
-                    ? <BasicLayout serialNumber = {
+                    ? <BaseLayout serialNumber = {
                         serialNumber[0]
                     }
                 /> : <Activation serialNumber={key[0]} />
-}
+                }
             </div>
         )
     }
