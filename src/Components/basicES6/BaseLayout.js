@@ -1,16 +1,16 @@
 import React, {Component} from 'react';
 import SecondLayout from './SecondLayout';
-import SecondAnnounceLayout from './SecondAnnounceLayout';
+// import SecondAnnounceLayout from './SecondAnnounceLayout';
 import Axios from 'axios';
 
-const style = {
-    front: {
-        position: 'absolute',
-        left: '0px',
-        top: '0px',
-        zIndex: '100'
-    }
-}
+// const style = {
+//     front: {
+//         position: 'absolute',
+//         left: '0px',
+//         top: '0px',
+//         zIndex: '100'
+//     }
+// }
 
 class BaseLayout extends Component {
 
@@ -93,16 +93,18 @@ class BaseLayout extends Component {
 
     render() {
         let message;
-        const serialNumber = this.props.serialNumber;
-        if (this.state.announce) {
-            message = <SecondAnnounceLayout prayer={this.state.prayer}/>
-        }
-        return (
-            <div>
-                {message}
-                <SecondLayout prayer={this.state.prayer} />
-            </div>
-        )
+        // const serialNumber = this.props.serialNumber;
+        // if (this.state.announce) {
+        //     message = <SecondAnnounceLayout prayer={this.state.prayer}/>
+        // }
+            return (
+                <div>
+                    {message}
+                    <SecondLayout prayer={this.state.prayer} />
+                </div>
+            )
+
+
     }
 }
 
